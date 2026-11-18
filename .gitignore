@@ -1,0 +1,25 @@
+# Dependencies and builds
+node_modules/
+.next/
+out/
+.vercel/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Large third-party downloads (EPA, Census, BLS). Re-download with pipeline scripts.
+data/raw/*
+!data/raw/.gitkeep
+
+# Personal contact data (names, emails, phones). Never commit.
+data/contacts/
+
+# Original third-party brief (not ours to republish)
+Instructions.md
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.vscode/
