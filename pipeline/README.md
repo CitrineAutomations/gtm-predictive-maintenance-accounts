@@ -9,6 +9,7 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 | 02c osha | `tri_shortlist_facilities.csv`, run with `node pipeline/02c_osha.mjs` | `data/processed/osha_parents.csv`, `osha_summary.json` | none (OSHA data from a public mirror) |
 | 02d news | `tri_shortlist_parents.csv`, run with `node pipeline/02d_news.mjs sample` or `all` | `data/processed/news_signals.csv`, `news_summary.json` | none (Exa web search, billed to the key owner) |
 | 02e maps test | 25 sampled parents, run with `node pipeline/02e_maps_test.mjs plan`, then the loop below, then `analyze` | `data/processed/maps_test_*.csv`, `maps_test_summary.json` | `serper_google_maps_search` (0.04 credits per result) |
+| 02f maps by state | `tri_shortlist_facilities.csv`, run `node pipeline/02f_maps_states.mjs plan`, then the loop below (read `queries.tsv` from `data/raw/maps_states/`), then `analyze` | `data/processed/maps_states_*.csv`, `maps_states_summary.json` | `serper_google_maps_search` (0.04 credits per query) |
 | 02 signals | `parents.csv` | `data/processed/signals.csv` | `prebuilt/company-to-job-postings-batch` |
 | 03 segments | `echo_parents.csv`, `osha_parents.csv` | `data/processed/segments.csv`, `segments_summary.json` | none |
 | 04 titles | top parents | `data/contacts/titles.csv` | `company_titles` |
