@@ -6,8 +6,9 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 | --- | --- | --- | --- |
 | 01 universe | EPA TRI Basic Data Files (RY2024), run with `node pipeline/01_universe.mjs 2024 ALL` | `data/processed/tri_shortlist_parents.csv`, `tri_summary.json`, `tri_facilities.csv` (ignored) | none (public EPA download) |
 | 02b echo | `tri_shortlist_facilities.csv`, run with `node pipeline/02b_echo.mjs` | `data/processed/echo_parents.csv`, `echo_summary.json` | none (public EPA ECHO download, about 450 MB) |
+| 02c osha | `tri_shortlist_facilities.csv`, run with `node pipeline/02c_osha.mjs` | `data/processed/osha_parents.csv`, `osha_summary.json` | none (OSHA data from a public mirror) |
 | 02 signals | `parents.csv` | `data/processed/signals.csv` | `prebuilt/company-to-job-postings-batch` |
-| 03 score | `signals.csv` | `data/processed/scored.csv` | deepline-scoring |
+| 03 segments | `echo_parents.csv`, `osha_parents.csv` | `data/processed/segments.csv`, `segments_summary.json` | none |
 | 04 titles | top parents | `data/contacts/titles.csv` | `company_titles` |
 | 05 load | `scored.csv`, `signals.csv` | Supabase `parents` and `signals` tables | none (Supabase service_role key) |
 
@@ -17,7 +18,9 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 - Step 02 pilot ran on 24 parents (OH, TX shortlist industries). It cost 13.44 credits (24 x 0.56). The play returns at most 25 postings per company plus a total count, so title counts are a lower bound. Domains marked "general knowledge" in `pilot_parents.csv` were not verified by a data source.
 - Step 01 now runs for all states. It keeps 978 parents with 3 or more plants in the shortlist industries (RY2024). Parent names are not merged across spelling variants yet.
 - Pilot step 02 on 25 parents first (about 15 credits).
-- Pick the score weights and write them in `docs/approach.md`.
+- Segments are angles for outreach, not one weighted score. Write the segment rules in `docs/approach.md`.
+- The OSHA data comes from a third-party mirror (labordata.bunkum.us). Only 1,182 inspections matched a shortlist plant by name and place. Check a sample before the Loom.
+- The hiring segment covers 24 parents only. Run step 02 on the segments that need it.
 
 ## Rules
 
