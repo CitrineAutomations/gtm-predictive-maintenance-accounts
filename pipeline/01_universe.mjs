@@ -170,5 +170,12 @@ fs.writeFileSync(
       [esc(name), e.plants, e.states.size, esc([...e.states].sort().join(' ')), esc([...e.naics3].sort().join(' '))].join(',')),
   ].join('\n'),
 );
+const keptParents = new Set(shortlist.map(([name]) => name));
+const keptPlants = withParent.filter((f) => inShortlist(f) && keptParents.has(f.parent_name));
+fs.writeFileSync(
+  path.join(OUT, `${prefix}_shortlist_facilities.csv`),
+  [cols.join(','), ...keptPlants.map((f) => cols.map((c) => esc(f[c])).join(','))].join('\n'),
+);
+summary.shortlist.plants_kept = keptPlants.length;
 fs.writeFileSync(path.join(OUT, `${prefix}_summary.json`), JSON.stringify(summary, null, 2));
 console.log(JSON.stringify(summary, null, 2));

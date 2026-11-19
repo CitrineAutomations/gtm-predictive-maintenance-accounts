@@ -5,6 +5,7 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 | Step | Input | Output | Deepline tool |
 | --- | --- | --- | --- |
 | 01 universe | EPA TRI Basic Data Files (RY2024), run with `node pipeline/01_universe.mjs 2024 ALL` | `data/processed/tri_shortlist_parents.csv`, `tri_summary.json`, `tri_facilities.csv` (ignored) | none (public EPA download) |
+| 02b echo | `tri_shortlist_facilities.csv`, run with `node pipeline/02b_echo.mjs` | `data/processed/echo_parents.csv`, `echo_summary.json` | none (public EPA ECHO download, about 450 MB) |
 | 02 signals | `parents.csv` | `data/processed/signals.csv` | `prebuilt/company-to-job-postings-batch` |
 | 03 score | `signals.csv` | `data/processed/scored.csv` | deepline-scoring |
 | 04 titles | top parents | `data/contacts/titles.csv` | `company_titles` |

@@ -19,6 +19,8 @@ data/contacts/
 # Pilot output (regenerate with pipeline/01_universe.mjs)
 data/processed/pilot_facilities.csv
 data/processed/tri_facilities.csv
+data/processed/tri_shortlist_facilities.csv
+data/processed/echo_plants.csv
 data/processed/pilot_postings.json
 data/processed/pilot_postings_receipt.json
 data/processed/pilot_parents.json
