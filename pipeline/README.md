@@ -32,6 +32,7 @@ Run after `plan`. The file has no final newline, so the loop uses `|| [ -n "$i" 
 while IFS=
 
 - Record the Deepline run ID next to each output.
+- Log every paid call in `docs/credit_ledger.csv`. Use `node pipeline/ledger.mjs add ...` and check `node pipeline/ledger.mjs report`. The report compares the ledger with the Deepline balance.
 - Never overwrite a raw file. Write derived files to `data/processed/`.
 	' read -r i parent query || [ -n "$i" ]; do
   q=$(printf '%s' "$query" | sed 's/"/ /g')

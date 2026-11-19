@@ -1,0 +1,9 @@
+date_utc,step,provider,tool,calls,units,deepline_credits,direct_usd,balance_after,evidence,note
+"2026-11-19T03:00Z","opening","deepline","","0","","0","","302.25","First balance reading in the session transcript","Opening balance for this ledger. Earlier use before this reading is unknown."
+"2026-11-19T03:21Z","02 signals pilot","deepline","prebuilt/company-to-job-postings-batch","1","24 parents","13.44","","288.81","Run ID play/prebuilt/company-to-job-postings-batch/run/20261119t032103-150-bb1ffd70 (receipt in data/processed/pilot_postings_receipt.json, ignored by git)","Price 0.56 credits per result. First balance reading (294.41) lagged. Settled reading 288.81."
+"2026-11-19T22:30Z","02e maps test","deepline","serper_google_maps_search","26","26 queries, 87 places","1.00","","287.81","Balance difference 288.81 to 287.81. Rechecked after a delay, no change.","25 queries returned places. 1 query (Mattr) returned 0 places. This fits 0.04 credits per query that returns at least one place. The listed price says per result. We assume per query."
+"2026-11-19T21:00Z","02d news","exa","search","1","1 query","","0.007","","Exa response field costDollars.total","Probe: Nucor expansion query."
+"2026-11-19T21:10Z","02d news","exa","search","12","12 parents","","0.084","","Exa response field costDollars.total (0.007 per call)","First 12-parent test. Titles only."
+"2026-11-19T22:00Z","02d news","exa","search + page text","12","12 parents","","0.084","","Exa response field costDollars.total (0.007 per call)","Full-text re-read of the 12 parents."
+"2026-11-19T23:00Z","02d news","exa","search + page text","25","25 parents","","0.175","","pipeline/02d_news.mjs summary exa_cost_usd","Sample run with name, date and person filters."
+"2026-11-19T21:00Z","02d news","keenable","v1/search","25","1 + 12 + 12 queries","","","","Keenable does not report a cost in the response","Cost unknown. Check the Keenable dashboard."
