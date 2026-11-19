@@ -1,0 +1,165 @@
+{
+  "year": "2024",
+  "states": [
+    "AL",
+    "AK",
+    "AZ",
+    "AR",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "DC",
+    "FL",
+    "GA",
+    "HI",
+    "ID",
+    "IL",
+    "IN",
+    "IA",
+    "KS",
+    "KY",
+    "LA",
+    "ME",
+    "MD",
+    "MA",
+    "MI",
+    "MN",
+    "MS",
+    "MO",
+    "MT",
+    "NE",
+    "NV",
+    "NH",
+    "NJ",
+    "NM",
+    "NY",
+    "NC",
+    "ND",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VT",
+    "VA",
+    "WA",
+    "WV",
+    "WI",
+    "WY",
+    "PR"
+  ],
+  "facilities_total": 21463,
+  "facilities_manufacturing": 18973,
+  "manufacturing_with_parent": 15540,
+  "parent_match_rate_pct": 81.9,
+  "parent_source": {
+    "standard": 15534,
+    "reported": 6,
+    "none": 3433
+  },
+  "distinct_parents": 3874,
+  "frs_id_present_pct": 97.5,
+  "parents_by_plant_count_in_sample": {
+    "1": 1762,
+    "2-4": 1393,
+    "5-9": 418,
+    "10+": 301
+  },
+  "top_parents": [
+    {
+      "name": "CRH AMERICAS INC",
+      "plants": 431
+    },
+    {
+      "name": "QUIKRETE HOLDINGS",
+      "plants": 214
+    },
+    {
+      "name": "BERKSHIRE HATHAWAY INC",
+      "plants": 200
+    },
+    {
+      "name": "CEMEX INC",
+      "plants": 179
+    },
+    {
+      "name": "SUMMIT MATERIALS LLC",
+      "plants": 111
+    },
+    {
+      "name": "TYSON FOODS INC",
+      "plants": 103
+    },
+    {
+      "name": "HOLCIM PARTICIPATIONS (US) INC",
+      "plants": 94
+    },
+    {
+      "name": "SMYRNA READY MIX LLC",
+      "plants": 93
+    },
+    {
+      "name": "KOCH INC",
+      "plants": 91
+    },
+    {
+      "name": "CARGILL INC",
+      "plants": 86
+    },
+    {
+      "name": "NUCOR CORP",
+      "plants": 79
+    },
+    {
+      "name": "TITAN AMERICA LLC",
+      "plants": 77
+    },
+    {
+      "name": "JBS USA FOOD CO",
+      "plants": 74
+    },
+    {
+      "name": "ERGON INC",
+      "plants": 72
+    },
+    {
+      "name": "MARTIN MARIETTA MATERIALS INC",
+      "plants": 72
+    }
+  ],
+  "naics3_counts": {
+    "311": 1675,
+    "312": 80,
+    "313": 69,
+    "314": 26,
+    "316": 14,
+    "321": 694,
+    "322": 313,
+    "323": 78,
+    "324": 796,
+    "325": 3393,
+    "326": 1252,
+    "327": 2624,
+    "331": 1376,
+    "332": 2836,
+    "333": 948,
+    "334": 572,
+    "335": 463,
+    "336": 1319,
+    "337": 142,
+    "339": 303
+  },
+  "shortlist": {
+    "min_plants": 3,
+    "parents_any": 3112,
+    "parents_kept": 978,
+    "parents_with_5_plus": 518,
+    "parents_with_10_plus": 201
+  }
+}

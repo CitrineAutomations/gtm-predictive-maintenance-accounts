@@ -1,16 +1,28 @@
 // Step 01: build the plant and parent universe from EPA TRI Basic Data Files.
-// Usage: node pipeline/01_universe.mjs [YEAR] [STATE ...]
+// Usage: node pipeline/01_universe.mjs [YEAR] [STATE ... | ALL]
 // Example: node pipeline/01_universe.mjs 2024 OH TX
+// Example: node pipeline/01_universe.mjs 2024 ALL
 //
 // Reads data/raw/tri_<year>_<state>.csv (downloads it when missing).
-// Writes data/processed/pilot_facilities.csv and data/processed/pilot_summary.json.
+// Writes data/processed/<prefix>_facilities.csv, <prefix>_summary.json and
+// <prefix>_shortlist_parents.csv. The prefix is "tri" for ALL and "pilot" otherwise.
+// The shortlist keeps parents with at least MIN_PLANTS plants in the shortlist industries.
 // Keeps only facility fields. It never writes the contact columns.
 
 import fs from 'node:fs';
 import path from 'node:path';
 
 const year = process.argv[2] || '2024';
-const states = process.argv.length > 3 ? process.argv.slice(3) : ['OH', 'TX'];
+const ALL_STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','PR'];
+const args = process.argv.slice(3);
+const isAll = args.length === 1 && args[0].toUpperCase() === 'ALL';
+const states = isAll ? ALL_STATES : args.length ? args : ['OH', 'TX'];
+const prefix = isAll ? 'tri' : 'pilot';
+const MIN_PLANTS = 3;
+// Shortlist industries: food, petroleum and coal products, chemicals, plastics,
+// primary metals, fabricated metals, machinery, transportation equipment.
+const SHORTLIST_NAICS3 = ['311', '324', '325', '326', '331', '332', '333', '336'];
+const EXCLUDED_NAICS6 = ['324121', '324122']; // asphalt plants
 const RAW = 'data/raw';
 const OUT = 'data/processed';
 
@@ -125,11 +137,38 @@ const summary = {
   naics3_counts: Object.fromEntries(Object.entries(naics3).sort((a, b) => b[1] - a[1])),
 };
 
+// Shortlist: parents with at least MIN_PLANTS plants in the shortlist industries
+const inShortlist = (f) => SHORTLIST_NAICS3.includes(f.naics.slice(0, 3)) && !EXCLUDED_NAICS6.includes(f.naics);
+const shortlistByParent = new Map();
+for (const f of withParent.filter(inShortlist)) {
+  const e = shortlistByParent.get(f.parent_name) || { plants: 0, states: new Set(), naics3: new Set() };
+  e.plants++; e.states.add(f.state); e.naics3.add(f.naics.slice(0, 3));
+  shortlistByParent.set(f.parent_name, e);
+}
+const shortlist = [...shortlistByParent.entries()]
+  .filter(([, e]) => e.plants >= MIN_PLANTS)
+  .sort((a, b) => b[1].plants - a[1].plants);
+summary.shortlist = {
+  min_plants: MIN_PLANTS,
+  parents_any: shortlistByParent.size,
+  parents_kept: shortlist.length,
+  parents_with_5_plus: shortlist.filter(([, e]) => e.plants >= 5).length,
+  parents_with_10_plus: shortlist.filter(([, e]) => e.plants >= 10).length,
+};
+
 const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
 const cols = ['trifd', 'frs_id', 'facility_name', 'city', 'county', 'state', 'zip', 'naics', 'parent_name', 'parent_source'];
 fs.writeFileSync(
-  path.join(OUT, 'pilot_facilities.csv'),
+  path.join(OUT, `${prefix}_facilities.csv`),
   [cols.join(','), ...mfg.map((f) => cols.map((c) => esc(f[c])).join(','))].join('\n'),
 );
-fs.writeFileSync(path.join(OUT, 'pilot_summary.json'), JSON.stringify(summary, null, 2));
+fs.writeFileSync(
+  path.join(OUT, `${prefix}_shortlist_parents.csv`),
+  [
+    'parent_name,shortlist_plants,state_count,states,naics3_groups',
+    ...shortlist.map(([name, e]) =>
+      [esc(name), e.plants, e.states.size, esc([...e.states].sort().join(' ')), esc([...e.naics3].sort().join(' '))].join(',')),
+  ].join('\n'),
+);
+fs.writeFileSync(path.join(OUT, `${prefix}_summary.json`), JSON.stringify(summary, null, 2));
 console.log(JSON.stringify(summary, null, 2));
