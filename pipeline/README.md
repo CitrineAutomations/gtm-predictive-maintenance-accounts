@@ -4,7 +4,7 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 
 | Step | Input | Output | Deepline tool |
 | --- | --- | --- | --- |
-| 01 universe | EPA FRS and TRI files | `data/processed/parents.csv` | `generic_http`, `free_simple_company_search` |
+| 01 universe | EPA TRI Basic Data Files (RY2024), run with `node pipeline/01_universe.mjs 2024 OH TX` | `data/processed/pilot_facilities.csv`, `pilot_summary.json` | none (public EPA download) |
 | 02 signals | `parents.csv` | `data/processed/signals.csv` | `prebuilt/company-to-job-postings-batch` |
 | 03 score | `signals.csv` | `data/processed/scored.csv` | deepline-scoring |
 | 04 titles | top parents | `data/contacts/titles.csv` | `company_titles` |
@@ -12,7 +12,8 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 
 ## Open items
 
-- Confirm the current EPA FRS and TRI file names and parent-company fields before step 01.
+- Step 01 is verified. The TRI file `mv_tri_basic_download` has parent name, FRS ID and primary NAICS. The latest year is 2024.
+- Plant counts only cover the states pulled. Run all states before ranking by plant count.
 - Pilot step 02 on 25 parents first (about 15 credits).
 - Pick the score weights and write them in `docs/approach.md`.
 

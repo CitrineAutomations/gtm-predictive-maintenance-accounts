@@ -1,0 +1,107 @@
+{
+  "year": "2024",
+  "states": [
+    "OH",
+    "TX"
+  ],
+  "facilities_total": 3219,
+  "facilities_manufacturing": 2755,
+  "manufacturing_with_parent": 2297,
+  "parent_match_rate_pct": 83.4,
+  "parent_source": {
+    "standard": 2296,
+    "reported": 1,
+    "none": 458
+  },
+  "distinct_parents": 1065,
+  "frs_id_present_pct": 97.4,
+  "parents_by_plant_count_in_sample": {
+    "1": 667,
+    "2-4": 324,
+    "5-9": 52,
+    "10+": 22
+  },
+  "top_parents": [
+    {
+      "name": "MARTIN MARIETTA MATERIALS INC",
+      "plants": 51
+    },
+    {
+      "name": "SMYRNA READY MIX LLC",
+      "plants": 51
+    },
+    {
+      "name": "QUIKRETE HOLDINGS",
+      "plants": 45
+    },
+    {
+      "name": "BERKSHIRE HATHAWAY INC",
+      "plants": 43
+    },
+    {
+      "name": "CRH AMERICAS INC",
+      "plants": 39
+    },
+    {
+      "name": "HOLCIM PARTICIPATIONS (US) INC",
+      "plants": 27
+    },
+    {
+      "name": "CEMEX INC",
+      "plants": 25
+    },
+    {
+      "name": "SUMMIT MATERIALS LLC",
+      "plants": 24
+    },
+    {
+      "name": "NOV INC",
+      "plants": 19
+    },
+    {
+      "name": "HEIDELBERG MATERIALS US INC",
+      "plants": 18
+    },
+    {
+      "name": "RPM INTERNATIONAL INC",
+      "plants": 14
+    },
+    {
+      "name": "CARGILL INC",
+      "plants": 14
+    },
+    {
+      "name": "COMMERCIAL METALS CO",
+      "plants": 14
+    },
+    {
+      "name": "LYONDELLBASELL FINANCE CO",
+      "plants": 12
+    },
+    {
+      "name": "KOCH INC",
+      "plants": 12
+    }
+  ],
+  "naics3_counts": {
+    "311": 146,
+    "312": 9,
+    "313": 9,
+    "314": 1,
+    "321": 57,
+    "322": 26,
+    "323": 10,
+    "324": 147,
+    "325": 674,
+    "326": 203,
+    "327": 380,
+    "331": 203,
+    "332": 437,
+    "333": 147,
+    "334": 47,
+    "335": 51,
+    "336": 173,
+    "337": 11,
+    "339": 24
+  }
+}

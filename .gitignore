@@ -16,6 +16,9 @@ data/raw/*
 # Personal contact data (names, emails, phones). Never commit.
 data/contacts/
 
+# Pilot output (regenerate with pipeline/01_universe.mjs)
+data/processed/pilot_facilities.csv
+
 # Original third-party brief (not ours to republish)
 Instructions.md
 
