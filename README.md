@@ -21,7 +21,8 @@ v0. Built from public data only. There is no access to the vendor's Salesforce d
 | `docs/` | Approach, assumptions, and the 60-day test plan |
 | `pipeline/` | Deepline steps that build the account list |
 | `data/raw/` | Third-party downloads (not committed) |
-| `data/processed/` | Pipeline output that the web app reads |
+| `data/processed/` | Intermediate pipeline output (CSV) |
+| `supabase/` | Database schema and row-level security |
 | `web/` | Lightweight CRM view, deployed on Vercel |
 
 ## Flow
@@ -30,17 +31,19 @@ v0. Built from public data only. There is no access to the vendor's Salesforce d
 2. Pull signals for each parent (hiring, expansion, plant count).
 3. Score and rank the parents.
 4. Find the first contact role for each top account.
-5. Write the result to `data/processed/accounts.json`.
-6. The web app reads that file and shows the table.
+5. Upsert the result into Supabase (`parents` and `signals` tables).
+6. The web app reads the `accounts_ranked` view and shows the table.
 
 ## Requirements
 
 - Node 22 or later
 - Deepline CLI (`npm install -g deepline`), signed in with `deepline setup`
+- A Supabase project. Run `supabase/schema.sql` in the SQL editor.
 - GitHub CLI and Vercel CLI for publishing
 
 ## Data rules
 
-- Keep Deepline API keys in `.env`. Do not commit them.
+- Keep Deepline and Supabase keys in `.env` (see `.env.example`). Do not commit them.
+- The Supabase `service_role` key stays on the server and in local `.env`. The browser uses only the `anon` key, with row-level security on.
 - Do not commit personal contact data. Keep it in `data/contacts/`, which is ignored.
 - Check the price of every Deepline run with a dry run before a paid run.

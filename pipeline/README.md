@@ -8,7 +8,7 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 | 02 signals | `parents.csv` | `data/processed/signals.csv` | `prebuilt/company-to-job-postings-batch` |
 | 03 score | `signals.csv` | `data/processed/scored.csv` | deepline-scoring |
 | 04 titles | top parents | `data/contacts/titles.csv` | `company_titles` |
-| 05 export | `scored.csv` | `data/processed/accounts.json` | none |
+| 05 load | `scored.csv`, `signals.csv` | Supabase `parents` and `signals` tables | none (Supabase service_role key) |
 
 ## Open items
 
