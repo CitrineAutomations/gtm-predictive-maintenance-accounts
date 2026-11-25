@@ -29,11 +29,15 @@ v0. Built from public data only. There is no access to the vendor's Salesforce d
 - The 60-day test compares the OSHA email with an email that uses no signal.
 - Each battle card still shows the start plant's quarter count and a link to the EPA Detailed Facility Report, as background to read before a call.
 
-**Check on 2026-11-25.** For the start plants of the top 25 accounts, we compared our quarter count with EPA's data service. 22 matched and 3 differed. One of the 3 moved from below the threshold to above it. The likely cause is that EPA updated its data after our download, but we did not confirm that. The facility report link for one account loaded.
+**Check on 2026-11-25.** For the start plants of the top 25 accounts, we compared our quarter count with the highest per-program count in EPA's data service. 22 matched and 3 differed. We first guessed that EPA had updated its data. That was wrong. For all 3 plants, the air, water and waste counts in our download are the same as EPA's counts today. The difference is inside the download itself: the facility field `FAC_QTRS_WITH_NC` does not always equal the highest program field. Across 7,458 plants, it is equal for 6,702, lower for 333 and higher for 423. We do not know why.
+
+Using the highest program field in place of the facility field would flag 1,455 plants instead of 1,523, and 592 parent companies instead of 606. This does not change the 250 accounts, which are picked on OSHA citations. It can change which of them show the EPA flag.
+
+The facility report link for one account loaded.
 
 **Limits.**
 
-- The count is the field `FAC_QTRS_WITH_NC`. We did not check its definition in EPA's data dictionary.
+- The count is the field `FAC_QTRS_WITH_NC`. We did not check its definition in EPA's data dictionary, and it disagrees with the program fields for about 1 plant in 10.
 - The card does not say which program (air, water or waste) the quarters come from.
 - We read the underlying records for three plants only.
 
