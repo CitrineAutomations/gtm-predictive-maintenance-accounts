@@ -75,6 +75,18 @@ const jaccard = (a, b) => {
 const zip5 = (z) => String(z ?? '').replace(/\D/g, '').slice(0, 5).padStart(5, '0');
 const cityKey = (c) => String(c || '').toUpperCase().replace(/[^A-Z ]/g, '').trim();
 
+// A shared town name or trade word must not make two companies match (for example,
+// "Lubrizol Deer Park" and "Deer Park Refining"). When two names share only town words and
+// trade words, accept the match only if neither name has any other word. That keeps companies
+// named after their town (Waupaca Foundry in Waupaca). This guard only removes matches.
+const TRADE = new Set(['INDUSTRIES', 'INDUSTRIAL', 'PRODUCTS', 'MANUFACTURING', 'MFG', 'CHEMICAL', 'CHEMICALS', 'REFINING', 'GALVANIZING', 'FOUNDRY', 'SYSTEM', 'SYSTEMS', 'SERVICES', 'COMPANY', 'INTERNATIONAL', 'METALS', 'STEEL', 'PLASTICS', 'PACKAGING', 'MATERIALS', 'OPERATIONS', 'FOODS', 'FARMS', 'MILL', 'MILLS', 'FEED', 'COATING', 'COATINGS', 'TECHNOLOGIES', 'SOLUTIONS']);
+const sameCompany = (x, y, cities) => {
+  const town = new Set(cities.join(' ').split(' ').filter(Boolean));
+  const own = (t) => !town.has(t) && !TRADE.has(t) && !/^\d+$/.test(t);
+  if ([...x].some((t) => own(t) && y.has(t))) return true;
+  return ![...x].some(own) && ![...y].some(own);
+};
+
 // 3. Load plants from step 01
 const pr = parseCsv(fs.readFileSync(path.join(OUT, 'tri_shortlist_facilities.csv'), 'utf8'));
 const ph = pr[0];
@@ -83,7 +95,7 @@ const plants = pr.slice(1).filter((r) => r.length > 1).map((r) => ({
   trifd: g(r, 'trifd'), facility_name: g(r, 'facility_name'), city: g(r, 'city'), state: g(r, 'state'),
   zip: zip5(g(r, 'zip')), parent_name: g(r, 'parent_name'),
   toks: tokens(g(r, 'facility_name')), cityKey: cityKey(g(r, 'city')),
-  inspections: 0, citations: 0, serious: 0, penalty: 0, weak: 0, osha_names: [],
+  inspections: 0, citations: 0, serious: 0, penalty: 0, weak: 0, osha_names: [], activity_nrs: [],
 }));
 const byZip = new Map(); const byCity = new Map();
 const push = (m, k, p) => { if (!m.has(k)) m.set(k, []); m.get(k).push(p); };
@@ -100,7 +112,7 @@ for (const o of osha) {
   for (const p of byCity.get(`${o.site_state}|${c}`) || []) if (!cands.has(p.trifd)) cands.set(p.trifd, { p, sameZip: false });
   let best = null;
   for (const { p, sameZip } of cands.values()) {
-    const s = jaccard(ot, p.toks);
+    const s = sameCompany(p.toks, ot, [c, p.cityKey]) ? jaccard(ot, p.toks) : 0;
     const isStrong = (sameZip && s >= 0.5) || (!sameZip && s >= 0.67);
     const isWeak = !isStrong && s >= 0.34;
     if (!isStrong && !isWeak) continue;
@@ -110,17 +122,17 @@ for (const o of osha) {
   if (!best) continue;
   if (best.isStrong) {
     strong++;
-    best.p.inspections++; best.p.osha_names.push(o.estab_name); best.p.citations += Number(o.viol_n) || 0;
+    best.p.inspections++; best.p.osha_names.push(o.estab_name); best.p.activity_nrs.push(o.activity_nr); best.p.citations += Number(o.viol_n) || 0;
     best.p.serious += Number(o.serious_n) || 0; best.p.penalty += Number(o.penalty) || 0;
   } else { weak++; best.p.weak++; }
 }
 
 // 5. Write outputs
 const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
-const pCols = ['trifd', 'facility_name', 'state', 'parent_name', 'inspections', 'citations', 'serious', 'penalty', 'weak', 'osha_names'];
+const pCols = ['trifd', 'facility_name', 'state', 'parent_name', 'inspections', 'citations', 'serious', 'penalty', 'weak', 'osha_names', 'activity_nrs'];
 fs.writeFileSync(
   path.join(OUT, 'osha_plants.csv'),
-  [pCols.join(','), ...plants.map((p) => pCols.map((c) => esc(Array.isArray(p[c]) ? p[c].join(' | ') : p[c])).join(','))].join('\n'),
+  [pCols.join(','), ...plants.map((p) => pCols.map((c) => esc(Array.isArray(p[c]) ? p[c].join(c === 'activity_nrs' ? ' ' : ' | ') : p[c])).join(','))].join('\n'),
 );
 const parents = new Map();
 for (const p of plants) {

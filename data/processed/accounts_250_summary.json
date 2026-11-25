@@ -1,0 +1,16 @@
+{
+  "pool_accounts": 373,
+  "picked": 250,
+  "with_businesses_listed": 4,
+  "with_integrity_citation": 14,
+  "with_machine_citation": 244,
+  "without_machine_citation": 6,
+  "also_epa": 187,
+  "with_review_note": 34,
+  "plants_3_to_4": 66,
+  "plants_5_to_9": 92,
+  "plants_10_plus": 92,
+  "plants_under_the_250": 3097,
+  "plants_with_serious_under_the_250": 484,
+  "plants_sold_or_without_a_business": 8
+}

@@ -12,6 +12,7 @@ Each step reads from the step before it and writes to `data/`. Run steps in orde
 | 02f maps by state | `tri_shortlist_facilities.csv`, run `node pipeline/02f_maps_states.mjs plan`, then the loop below (read `queries.tsv` from `data/raw/maps_states/`), then `analyze` | `data/processed/maps_states_*.csv`, `maps_states_summary.json` | `serper_google_maps_search` (0.04 credits per query) |
 | 02 signals | `parents.csv` | `data/processed/signals.csv` | `prebuilt/company-to-job-postings-batch` |
 | 03 segments | `echo_parents.csv`, `osha_parents.csv` | `data/processed/segments.csv`, `segments_summary.json` | none |
+| 03b select 250 | `tri_shortlist_facilities.csv`, `osha_plants.csv`, `echo_plants.csv`, `pipeline/owner_splits.json`, OSHA mirror | `data/processed/accounts_250.csv`, `accounts_250_summary.json`, `accounts_unassigned_plants.csv` | none |
 | 04 titles | top parents | `data/contacts/titles.csv` | `company_titles` |
 | 05 load | `scored.csv`, `signals.csv` | Supabase `parents` and `signals` tables | none (Supabase service_role key) |
 

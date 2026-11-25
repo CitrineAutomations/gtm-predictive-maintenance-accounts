@@ -1,5 +1,5 @@
 parent_name,shortlist_plants,state_count,epa_plants,osha_plants,epa,osha
-"BERKSHIRE HATHAWAY INC",129,33,37,11,1,1
+"BERKSHIRE HATHAWAY INC",129,33,37,10,1,1
 "TYSON FOODS INC",103,23,17,8,1,1
 "CARGILL INC",86,28,14,5,1,1
 "NUCOR CORP",76,26,14,6,1,1
@@ -136,7 +136,7 @@ parent_name,shortlist_plants,state_count,epa_plants,osha_plants,epa,osha
 "EASTMAN CHEMICAL CO",12,9,6,0,1,0
 "PECO FOODS INC",12,3,2,0,1,0
 "GERDAU USA INC",12,10,5,1,1,1
-"THE CHEMOURS CO",12,8,8,2,1,1
+"THE CHEMOURS CO",12,8,8,1,1,1
 "GREENHECK FAN CORP",12,7,0,1,0,1
 "FUTURE FOAM INC",12,12,2,1,1,1
 "SONOCO PRODUCTS CO",12,9,2,0,1,0
