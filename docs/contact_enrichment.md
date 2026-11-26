@@ -4,6 +4,8 @@ Status: draft, 2026-11-26. Nothing here has run on the 250 accounts yet.
 
 Several files named here are not on `main` yet. The pipeline scripts (including the EPA equipment step, 02g), `accounts_250.csv` and the credit ledger are on `agent/pilot-universe-0818b`. The CRM (`web/`) is on `agent/crm-app-1124c`. The battle card spec is on `agent/battle-card-spec-1124a`.
 
+Scope for the demo: all 250 accounts, 2 contacts each (decided 2026-11-26). The 10-account pilot still runs first.
+
 For each account we research the company, research recent news, then use both to decide who to look for. The contact search comes last because the research can change which plant, domain and job titles are right. In the Polynt test, news showed that one plant had closed, and a job posting named the site role that the maintenance manager reports to.
 
 ## Before we start
