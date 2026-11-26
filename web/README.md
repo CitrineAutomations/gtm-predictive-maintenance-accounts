@@ -9,7 +9,9 @@ A small CRM for the 250 target accounts.
 
 Accounts listed in `data/profiles.json` also get "About the company" and "Recent news" sections, with a source link for each item. A plant that a source reports as closed is marked in the company tree, and contacts in that city are flagged. Only Polynt has a profile so far.
 
-The EPA quarter counts come from a bulk file dated 2026-11-18 and can be out of date. See the root README.
+The EPA box on each card lists equipment-related violations from pipeline step 02g, the other flagged plants of the account and a short reading guide. It is background only. See the root README.
+
+The seed also needs `data/processed/epa_equipment_plants.csv`, which Git ignores. Run step 02g first.
 
 The seed downloads OSHA inspection records from a third-party copy of the data (free) and caches them in `.cache/`.
 

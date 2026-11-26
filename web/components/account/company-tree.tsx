@@ -11,7 +11,7 @@ function PlantItem({ plant, start }: { plant: Company; start: boolean }) {
       {plant.integrity ? <Badge variant="destructive">Mechanical integrity</Badge>
         : plant.machine ? <Badge variant="destructive">Machine citation</Badge>
         : plant.osha ? <Badge variant="secondary">OSHA serious</Badge> : null}{" "}
-      {plant.epa ? <Badge variant="secondary">EPA</Badge> : null}
+      {plant.epa ? <Badge variant="secondary">{plant.epaSnc ? "EPA serious violator" : "EPA equipment"}</Badge> : null}
     </li>
   );
 }

@@ -37,9 +37,13 @@ model Company {
   // Email group of an account in the 60-day test
   emailGroup      Angle?
   startPlantId    String?
-  // EPA registry ID and quarters in non-compliance of a plant
+  // EPA registry ID of a plant, and its equipment-related findings (pipeline step 02g)
   frsId           String?
+  // No longer used. Kept so that a database update drops no column.
   epaQuarters     Int        @default(0)
+  epaFindings     Json?
+  epaSnc          String?
+  epaOpen         Boolean    @default(false)
   inspections     Inspection[]
   // Company overview and recent news of an account, from data/profiles.json
   profile         Json?

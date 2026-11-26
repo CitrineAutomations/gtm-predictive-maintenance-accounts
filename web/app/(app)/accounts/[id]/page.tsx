@@ -75,7 +75,8 @@ export default async function AccountPage({ params, searchParams }: {
 
       {tab === "card" ? (
         <BattleCard group={group} plant={startPlant} inspections={startPlant?.inspections ?? []} contacts={contacts}
-          profile={account.profile as Profile | null} />
+          profile={account.profile as Profile | null}
+          epaPlants={await prisma.company.findMany({ where: { rootId: id, level: "PLANT", epa: true }, orderBy: [{ epaOpen: "desc" }, { state: "asc" }, { city: "asc" }] })} />
       ) : null}
 
       {tab === "contacts" ? (
@@ -146,7 +147,7 @@ export default async function AccountPage({ params, searchParams }: {
               [account.machinePlants, "Plants with a machine-related citation"],
               [account.integrityPlants, "Plants with a mechanical integrity citation"],
               [account.seriousPlants, "Plants with a serious, repeat or willful OSHA citation"],
-              [account.epaPlants, "Plants with the EPA signal"],
+              [account.epaPlants, "Plants with an equipment-related EPA violation or serious-violator mark"],
             ].map(([value, label]) => (
               <Card key={label as string}><CardContent className="pt-4"><div className="text-2xl font-semibold tabular-nums">{value}</div><div className="text-muted-foreground">{label}</div></CardContent></Card>
             ))}

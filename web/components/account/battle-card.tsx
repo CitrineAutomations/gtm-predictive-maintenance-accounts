@@ -4,12 +4,13 @@ import { firstContact, firstEmail, inCity } from "@/lib/email";
 import { GROUP_LABEL } from "@/lib/labels";
 import { isMachineRule, oshaSearchUrl, ruleName, titleCase } from "@/lib/rules";
 import { CopyButton } from "./copy-button";
+import { EpaRecord } from "./epa-record";
 import { ProfileSections, type Profile } from "./profile-sections";
 
 const linkButton = "inline-flex h-9 items-center rounded-md border px-3 font-medium";
 
-export function BattleCard({ group, plant, inspections, contacts, profile }: {
-  group: "OSHA" | "CONTROL"; plant: Company | null; inspections: Inspection[]; contacts: Contact[]; profile: Profile | null;
+export function BattleCard({ group, plant, inspections, contacts, profile, epaPlants }: {
+  group: "OSHA" | "CONTROL"; plant: Company | null; inspections: Inspection[]; contacts: Contact[]; profile: Profile | null; epaPlants: Company[];
 }) {
   if (!plant) return <p className="text-muted-foreground">We have no plant record for this account.</p>;
 
@@ -89,20 +90,7 @@ export function BattleCard({ group, plant, inspections, contacts, profile }: {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader><CardTitle className="text-base">EPA report</CardTitle></CardHeader>
-        <CardContent className="flex flex-col gap-2">
-          <p>
-            Quarters in non-compliance: {plant.epaQuarters} of the last 12.{" "}
-            {plant.epa ? "Read the report first. Many items are paperwork." : "This is below our signal level."}
-          </p>
-          {plant.frsId ? (
-            <a className={`${linkButton} self-start`} target="_blank" rel="noreferrer" href={`https://echo.epa.gov/detailed-facility-report?fid=${plant.frsId}`}>
-              Open the EPA facility report
-            </a>
-          ) : null}
-        </CardContent>
-      </Card>
+      <EpaRecord plant={plant} others={epaPlants.filter((p) => p.id !== plant.id)} />
 
       <Card>
         <CardHeader><CardTitle className="text-base">Email ({GROUP_LABEL[group]} group)</CardTitle></CardHeader>

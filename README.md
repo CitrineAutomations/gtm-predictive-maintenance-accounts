@@ -16,30 +16,35 @@ v0. Built from public data only. There is no access to the vendor's Salesforce d
 
 ## EPA report: what we did and what we found
 
-**Source.** The bulk "ECHO exporter" file from EPA's [Enforcement and Compliance History Online](https://echo.epa.gov/), downloaded 2026-11-18. Step `pipeline/02b_echo.mjs` joins it to our plants by EPA registry ID and found 7,458 of 7,486 plants that have an ID.
+**First idea.** Treat a plant with 4 or more quarters of non-compliance in the last 12 as a sales signal, using the "ECHO exporter" file from EPA's [Enforcement and Compliance History Online](https://echo.epa.gov/) (step `pipeline/02b_echo.mjs`). 606 of 978 parent companies had at least one such plant.
 
-**First idea.** Treat a plant with 4 or more quarters of non-compliance in the last 12 as a sales signal. 606 of 978 parent companies had at least one such plant.
+**Why we dropped that measure.**
 
-**What the records showed.** We read the records behind the flag for three Lubrizol plants. They were a missed annual certification, a permit status item and hazardous waste items. None showed an equipment failure. An email that claimed one would have been wrong.
+- We read the records behind the flag for three plants of one company. They were a missed annual certification, a permit status item and hazardous waste items. None showed an equipment failure.
+- The facility field `FAC_QTRS_WITH_NC` does not always equal the highest program field. Across 7,458 plants it is equal for 6,702, lower for 333 and higher for 423. We do not know why.
 
-**Decision.**
+**What we use now.** Step `pipeline/02g_epa_detail.mjs` reads EPA's bulk water, waste and air files (about 3.4 GB) for the 3,061 plants of the 250 accounts. It keeps violation types that relate to equipment: discharges above a permit limit, bypasses and spills, hazardous waste rules for leaks and tanks, and air High Priority Violations (counted apart). It counts violations since 2023-11-01, plus older leak, tank and air items that have no end date. Late reports and paperwork do not count.
 
-- EPA is not an outreach angle.
-- The 250 accounts are picked on OSHA citations. 187 of them also have the EPA flag.
-- The 60-day test compares the OSHA email with an email that uses no signal.
-- Each battle card still shows the start plant's quarter count and a link to the EPA Detailed Facility Report, as background to read before a call.
+| Result | Plants | Accounts (of 250) |
+| --- | --- | --- |
+| Equipment-related violation (not counting air High Priority) | 388 | 136 |
+| EPA serious violator mark now | 226 | 114 |
+| Open leak, tank or air High Priority item | 50 | 36 |
+| Discharge breach under a stormwater permit only (not a flag) | 31 | 24 |
 
-**Check on 2026-11-25.** For the start plants of the top 25 accounts, we compared our quarter count with the highest per-program count in EPA's data service. 22 matched and 3 differed. We first guessed that EPA had updated its data. That was wrong. For all 3 plants, the air, water and waste counts in our download are the same as EPA's counts today. The difference is inside the download itself: the facility field `FAC_QTRS_WITH_NC` does not always equal the highest program field. Across 7,458 plants, it is equal for 6,702, lower for 333 and higher for 423. We do not know why.
+**How we use it.**
 
-Using the highest program field in place of the facility field would flag 1,455 plants instead of 1,523, and 592 parent companies instead of 606. This does not change the 250 accounts, which are picked on OSHA citations. It can change which of them show the EPA flag.
+- EPA is background on the battle card. It is not named in an email and it is not a test group.
+- The 250 accounts are picked on OSHA citations. The 60-day test compares the OSHA email with an email that uses no signal.
 
-The facility report link for one account loaded.
+**Checks.** We compared two plants of one company with EPA's facility report pages. The violations we listed were there, and one page showed more history than we count. That comparison was made before we added the open-item, serious violator and stormwater rules.
 
 **Limits.**
 
-- The count is the field `FAC_QTRS_WITH_NC`. We did not check its definition in EPA's data dictionary, and it disagrees with the program fields for about 1 plant in 10.
-- The card does not say which program (air, water or waste) the quarters come from.
-- We read the underlying records for three plants only.
+- A violation does not prove that equipment failed. The link to equipment is our assumption and is not tested against sales results.
+- The stormwater rule only sees permits tagged as industrial or construction stormwater. Other permits can include rain outfalls.
+- "Open" means EPA's file has no return-to-compliance date. The plant may have fixed the problem.
+- The signal shows up more often at companies with more plants.
 
 ## Layout
 

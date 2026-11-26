@@ -101,7 +101,7 @@ async function main() {
   const accounts = readCsv(processed("accounts_250.csv"));
   const facilities = readCsv(processed("tri_shortlist_facilities.csv"));
   const osha = new Map(readCsv(processed("osha_plants.csv")).map((r) => [r.trifd, r]));
-  const echo = new Map(readCsv(processed("echo_plants.csv")).map((r) => [r.trifd, r]));
+  const epaFindings = new Map(readCsv(processed("epa_equipment_plants.csv")).map((r) => [r.trifd, r]));
   const rules = JSON.parse(fs.readFileSync(path.join(ROOT, "pipeline/owner_splits.json"), "utf8"));
 
   const legalNames = new Set(accounts.map((a) => a.legal_parent_name));
@@ -127,7 +127,7 @@ async function main() {
     companies.push({
       id, level: "PARENT", name: a.account_name, legalName: a.legal_parent_name, rank: Number(a.rank),
       plantCount: Number(a.plants), stateCount: Number(a.states), seriousPlants: Number(a.serious_plants),
-      machinePlants: Number(a.machine_plants), integrityPlants: Number(a.integrity_plants), epaPlants: Number(a.epa_plants),
+      machinePlants: Number(a.machine_plants), integrityPlants: Number(a.integrity_plants),
       startWith: a.businesses || null, reviewNote: a.review_note || null,
     });
   }
@@ -173,16 +173,25 @@ async function main() {
         penalty: Math.round(rows.reduce((n, v) => n + (v.current_penalty || 0), 0)),
       });
     }
-    const quarters = Number(echo.get(f.trifd)?.FAC_QTRS_WITH_NC || 0);
+    // Equipment-related EPA findings. Rain runoff alone does not flag a plant.
+    const found = epaFindings.get(f.trifd);
+    const kinds = ["water_limit", "water_stormwater", "water_bypass", "leak_tank", "air_priority"];
+    const findings = Object.fromEntries(kinds.filter((k) => found?.[k]).map((k) => [k, found![k]]));
+    const flagged = Boolean(found?.snc) || kinds.some((k) => k !== "water_stormwater" && found?.[k]);
     companies.push({
       id: plantId, level: "PLANT", name: f.facility_name, parentId, rootId, city: f.city, state: f.state, naics: f.naics,
-      industry: INDUSTRY[f.naics.slice(0, 3)] || "Other", frsId: f.frs_id || null, epaQuarters: quarters,
-      osha: Number(osha.get(f.trifd)?.serious || 0) > 0, machine, integrity, epa: quarters >= 4,
+      industry: INDUSTRY[f.naics.slice(0, 3)] || "Other", frsId: f.frs_id || null,
+      epaFindings: Object.keys(findings).length ? findings : undefined, epaSnc: found?.snc || null, epaOpen: Boolean(found?.open_kinds),
+      osha: Number(osha.get(f.trifd)?.serious || 0) > 0, machine, integrity, epa: flagged,
     });
     plantsByRoot.set(rootId, [
       ...(plantsByRoot.get(rootId) || []),
       { id: plantId, naics: f.naics, score: [integrityItems, machineItems, latest ? 1 : 0, latest] },
     ]);
+  }
+
+  for (const c of companies.filter((x) => x.level === "PARENT")) {
+    c.epaPlants = companies.filter((p) => p.rootId === c.id && p.level === "PLANT" && p.epa).length;
   }
 
   // One industry when 60% or more of the plants share it.
@@ -315,4 +324,5 @@ async function main() {
   }));
 }
 
-main().finally(() => prisma.$disconnect());
+// The local database server can keep the connection pool open, so exit when the load is done.
+main().then(() => process.exit(0), (error) => { console.error(error); process.exit(1); });
