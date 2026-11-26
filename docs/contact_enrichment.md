@@ -92,7 +92,7 @@ IT and procurement come after the plant team shows interest, so we do not search
 
 1. Search by domain, titles and country with `search_contact`.
 2. If nothing comes back, try the business domain, then the company name. Record what was tried.
-3. Pick one plant contact and one maintenance contact. Prefer the same city as the start plant, then the same state.
+3. Pick 2 contacts per account, one plant and one maintenance (decided 2026-11-26, enough for the demo). Prefer the same city as the start plant, then the same state.
 4. Look up email with `prebuilt/person-to-email-batch`, only for the people picked.
 5. Flag a contact whose last name or mailbox is the company's own name, or who sits at a closed plant.
 6. Leave the role empty if no one fits. Do not fill it with a weaker title without saying so.
@@ -173,7 +173,6 @@ Exa news search, 25 parent companies (`pipeline/02d_news.mjs`):
 
 | Decision | Suggestion |
 | --- | --- |
-| Contacts per account | 2 to start (plant and maintenance) |
 | Who writes the search brief | An agent drafts it with sources, a person checks every `Hold` and a sample of the rest |
 | Does the battle card spec keep its EPA angle? | Remove it. The CRM work treats EPA as background only, with two email groups, OSHA and Control. |
 | When to mirror the CRM into Supabase | After the pilot, once the fields have stopped changing |
