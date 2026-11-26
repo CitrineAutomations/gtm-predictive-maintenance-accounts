@@ -2,7 +2,7 @@
 
 Status: draft, 2026-11-26. Nothing here has run on the 250 accounts yet.
 
-Several files named here are not on `main` yet. The pipeline scripts, `accounts_250.csv` and the credit ledger are on `agent/pilot-universe-0818b`. The CRM (`web/`) is on `agent/crm-app-1124c`. The EPA equipment step (02g) and the battle card spec are not committed.
+Several files named here are not on `main` yet. The pipeline scripts (including the EPA equipment step, 02g), `accounts_250.csv` and the credit ledger are on `agent/pilot-universe-0818b`. The CRM (`web/`) is on `agent/crm-app-1124c`. The battle card spec is on `agent/battle-card-spec-1124a`.
 
 For each account we research the company, research recent news, then use both to decide who to look for. The contact search comes last because the research can change which plant, domain and job titles are right. In the Polynt test, news showed that one plant had closed, and a job posting named the site role that the maintenance manager reports to.
 
@@ -10,7 +10,7 @@ For each account we research the company, research recent news, then use both to
 
 | # | Task | Done when |
 | --- | --- | --- |
-| 1 | Check the EPA equipment files from step 02g. The run finished on 2026-11-25. | A sample of violations matches EPA's own pages, and the script and outputs are committed |
+| 1 | Check the EPA equipment files from step 02g. They are committed. | A sample of violations from the current rules matches EPA's own pages |
 | 2 | Merge the account list into `main` | `accounts_250.csv`, `ledger.mjs` and `credit_ledger.csv` are on `main` |
 | 3 | Decide whether EPA results change the start plant. They do not change the email groups. | The rule is written down before any contact search |
 | 4 | Store contacts and research in the CRM database (decided 2026-11-25) | The CRM load step reads the contact file and the research file for the pilot accounts |
