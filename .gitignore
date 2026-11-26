@@ -33,3 +33,4 @@ Instructions.md
 .DS_Store
 Thumbs.db
 .vscode/
+data/processed/epa_equipment_plants.csv

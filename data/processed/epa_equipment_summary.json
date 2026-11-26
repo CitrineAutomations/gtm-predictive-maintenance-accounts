@@ -1,0 +1,35 @@
+{
+  "built_on": "2026-11-25",
+  "violations_since": "2023-11-01",
+  "accounts": 250,
+  "plants_under_accounts": 3061,
+  "plants_found_in_epa": 3040,
+  "plants": {
+    "water_limit": 362,
+    "water_stormwater": 31,
+    "water_bypass": 13,
+    "leak_tank": 31,
+    "air_priority": 72,
+    "equipment_any": 388,
+    "water_limit_3_or_more_times": 234
+  },
+  "accounts_with": {
+    "water_limit": 129,
+    "water_stormwater": 24,
+    "water_bypass": 12,
+    "leak_tank": 25,
+    "air_priority": 50,
+    "equipment_any": 136,
+    "water_limit_3_or_more_times": 109,
+    "equipment_or_air_priority": 144,
+    "equipment_at_2plus_plants": 76,
+    "open_leak_tank_or_air": 36,
+    "snc": 114,
+    "equipment_or_snc": 164
+  },
+  "plants_marked": {
+    "open_leak_tank_or_air": 50,
+    "snc": 226
+  },
+  "top_25_with_equipment": 21
+}
