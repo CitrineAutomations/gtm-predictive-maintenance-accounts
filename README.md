@@ -14,6 +14,17 @@ v0. Built from public data only. There is no access to the vendor's Salesforce d
 - Account scoring uses public signals, not won/lost history.
 - Plant-to-parent matching depends on the EPA TRI files, which cover only plants that report to TRI.
 
+## Contact enrichment
+
+The plan for finding contacts is in [docs/contact_enrichment.md](docs/contact_enrichment.md). It is a draft and has not run on the 250 accounts.
+
+1. Search for company facts with Keenable. Exa is a fallback when Keenable leaves a gap.
+2. Search for recent news the same way.
+3. Use both to choose the plant, domain and job titles to search.
+4. Search for contacts with Deepline.
+
+Contacts and research go in the CRM database first, to be mirrored into Supabase later. The Flow section below describes the Supabase side. Contact data is never committed.
+
 ## Layout
 
 | Folder | Purpose |
