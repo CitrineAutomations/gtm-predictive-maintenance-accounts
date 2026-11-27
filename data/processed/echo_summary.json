@@ -1,0 +1,12 @@
+{
+  "echo_rows_read": 3239030,
+  "shortlist_plants": 7613,
+  "plants_with_frs_id": 7486,
+  "plants_found_in_echo": 7458,
+  "parents": 978,
+  "parents_with_any_nc_plant": 816,
+  "parents_with_2plus_nc_plants": 586,
+  "parents_with_nc_4plus_qtrs_at_1plus_plant": 606,
+  "parents_with_nc_4plus_qtrs_at_2plus_plants": 326,
+  "parents_with_any_formal_action": 565
+}

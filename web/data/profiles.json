@@ -1,0 +1,58 @@
+{
+  "POLYNT COMPOSITES USA INC": {
+    "checkedOn": "2026-11-25",
+    "about": [
+      {
+        "label": "What the company does",
+        "text": "Makes resins and gel coats for composite materials. Customers use the materials in vehicles, construction, boats and energy equipment.",
+        "source": "https://polynt.com/wp-content/uploads/2025/04/44-Brochure-Polynt-Group-Composites-Resins-Americas.pdf"
+      },
+      {
+        "label": "Owner",
+        "text": "Part of the Polynt Group, based in Italy. Black Diamond Capital Management has controlled the group since 2021.",
+        "source": "https://polynt.com/en/about"
+      },
+      {
+        "label": "Jacksonville plant",
+        "text": "Makes chemicals for coatings and composite resins. The source is a company quality certificate that expired on 2024-10-01.",
+        "source": "https://polynt.com/wp-content/uploads/2021/10/ISO-9001-Polynt-Composites-US.pdf"
+      },
+      {
+        "label": "Orlando plant",
+        "text": "Makes gel coats. The source is the same certificate, which has expired.",
+        "source": "https://polynt.com/wp-content/uploads/2021/10/ISO-9001-Polynt-Composites-US.pdf"
+      }
+    ],
+    "news": [
+      {
+        "date": "2026-11-04",
+        "headline": "Hiring a Maintenance Manager in Jacksonville. The posting asks for vibration analysis, thermal imaging and oil analysis, and names downtime as a goal.",
+        "action": "Contact the Jacksonville Site Manager. The posting says the Maintenance Manager reports to that person.",
+        "caution": "A posting date can be a repost date. Check that the role is still open.",
+        "source": "https://careers.polynt.com/job/Jacksonville-Maintenance-Manager-Jacksonville-FL-32099/1370650955"
+      },
+      {
+        "date": "2026-11-14",
+        "headline": "Hiring a maintenance mechanic in Jacksonville for pumps, valves, piping, agitators, fans and seals.",
+        "action": "Ask which of these machines cause the most unplanned work.",
+        "caution": "A posting does not prove that the role is still open.",
+        "source": "https://careers.polynt.com/job/Jacksonville-Maintenance-Operator-Jacksonville-FL-32099/1356252655"
+      },
+      {
+        "date": "2026-11-03",
+        "headline": "Hiring an Engineering Manager in Jacksonville to manage plant reliability and the process safety program.",
+        "action": "Treat plant engineering as a second contact path.",
+        "caution": "A posting does not prove that the role is still open.",
+        "source": "https://careers.polynt.com/job/Jacksonville-Engineering-Manager-Jacksonville-FL-32099/1370561055"
+      },
+      {
+        "date": "2026-02-18",
+        "headline": "Polynt closed its Pensacola plant. A local report says the plant stopped operating in September.",
+        "action": "Do not target Pensacola. Confirm the job of any Pensacola contact.",
+        "caution": "One local news source.",
+        "source": "https://weartv.com/news/local/polynt-group-shuts-down-former-reichhold-composites-plant-in-pensacola-affecting-60-jobs"
+      }
+    ],
+    "closedPlants": [{ "city": "PENSACOLA", "state": "FL", "note": "Closed. Local news report, 2026-02-18." }]
+  }
+}

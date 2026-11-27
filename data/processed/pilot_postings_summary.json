@@ -1,0 +1,339 @@
+[
+ {
+  "parent": "AZZ INC",
+  "domain": "azz.com",
+  "plants": 11,
+  "hiring": true,
+  "total": 66,
+  "returned": 25,
+  "maint": 6,
+  "newest": "2026-11-19",
+  "miss": null,
+  "sample": [
+   "Industrial Maintenance Tech",
+   "Industrial Maintenance Tech"
+  ]
+ },
+ {
+  "parent": "COMMERCIAL METALS CO",
+  "domain": "cmc.com",
+  "plants": 14,
+  "hiring": true,
+  "total": 293,
+  "returned": 25,
+  "maint": 5,
+  "newest": "2026-11-17",
+  "miss": null,
+  "sample": [
+   "Maintenance Technician",
+   "Maintenance Technician"
+  ]
+ },
+ {
+  "parent": "CLEVELAND-CLIFFS INC",
+  "domain": "clevelandcliffs.com",
+  "plants": 9,
+  "hiring": true,
+  "total": 215,
+  "returned": 25,
+  "maint": 5,
+  "newest": "2026-11-18",
+  "miss": null,
+  "sample": [
+   "Maintenance Technician Mechanical",
+   "Maintenance Helper"
+  ]
+ },
+ {
+  "parent": "TYSON FOODS INC",
+  "domain": "tysonfoods.com",
+  "plants": 9,
+  "hiring": true,
+  "total": 678,
+  "returned": 25,
+  "maint": 4,
+  "newest": "2026-11-19",
+  "miss": null,
+  "sample": [
+   "Carthage Plant (Choctaw) - 3rd Shift- Maintenance Generalist MG05U",
+   "Industrial Maintenance Day Shift Caseyville IL"
+  ]
+ },
+ {
+  "parent": "VALERO ENERGY CORP",
+  "domain": "valero.com",
+  "plants": 8,
+  "hiring": true,
+  "total": 71,
+  "returned": 25,
+  "maint": 4,
+  "newest": "2026-11-11",
+  "miss": null,
+  "sample": [
+   "Reliability Engineer",
+   "Manager Maintenance - Ethanol Plant"
+  ]
+ },
+ {
+  "parent": "WORTHINGTON STEEL INC",
+  "domain": "worthingtonsteel.com",
+  "plants": 8,
+  "hiring": true,
+  "total": 58,
+  "returned": 25,
+  "maint": 4,
+  "newest": "2026-11-18",
+  "miss": null,
+  "sample": [
+   "Multi-Craft Industrial Mechanic – Night Shift",
+   "Maintenance Machinist (Tool & Die)"
+  ]
+ },
+ {
+  "parent": "CARGILL INC",
+  "domain": "cargill.com",
+  "plants": 14,
+  "hiring": true,
+  "total": 887,
+  "returned": 25,
+  "maint": 3,
+  "newest": "2026-11-18",
+  "miss": null,
+  "sample": [
+   "Maintenance Electrician",
+   "Maintenance Planner - Beef Processing"
+  ]
+ },
+ {
+  "parent": "EXXON MOBIL CORP",
+  "domain": "exxonmobil.com",
+  "plants": 8,
+  "hiring": true,
+  "total": 449,
+  "returned": 25,
+  "maint": 3,
+  "newest": "2026-11-18",
+  "miss": null,
+  "sample": [
+   "KL Hub Campus Hire - Mechanical Engineer",
+   "Maintenance Engineer - CMMS"
+  ]
+ },
+ {
+  "parent": "NUCOR CORP",
+  "domain": "nucor.com",
+  "plants": 7,
+  "hiring": true,
+  "total": 233,
+  "returned": 25,
+  "maint": 3,
+  "newest": "2026-11-18",
+  "miss": null,
+  "sample": [
+   "Mechanical Technician",
+   "Industrial Maintenance Technician"
+  ]
+ },
+ {
+  "parent": "DOW INC",
+  "domain": "dow.com",
+  "plants": 8,
+  "hiring": true,
+  "total": 216,
+  "returned": 25,
+  "maint": 3,
+  "newest": "2026-11-18",
+  "miss": null,
+  "sample": [
+   "Senior Maintenance Scheduler",
+   "Senior Maintenance Technician (Millwright)"
+  ]
+ },
+ {
+  "parent": "HUNTSMAN CORP",
+  "domain": "huntsman.com",
+  "plants": 7,
+  "hiring": true,
+  "total": 115,
+  "returned": 25,
+  "maint": 3,
+  "newest": "2026-11-13",
+  "miss": null,
+  "sample": [
+   "Mechanical Maintenance & Reliability Engineer",
+   "Maintenance Mechanic"
+  ]
+ },
+ {
+  "parent": "LYONDELLBASELL FINANCE CO",
+  "domain": "lyondellbasell.com",
+  "plants": 12,
+  "hiring": true,
+  "total": 103,
+  "returned": 25,
+  "maint": 2,
+  "newest": "2026-11-10",
+  "miss": null,
+  "sample": [
+   "Maintenance Coördinator (Technician)",
+   "Rotating Reliability Engineer"
+  ]
+ },
+ {
+  "parent": "LAND O LAKES INC",
+  "domain": "landolakesinc.com",
+  "plants": 11,
+  "hiring": true,
+  "total": 58,
+  "returned": 25,
+  "maint": 2,
+  "newest": "2026-11-18",
+  "miss": null,
+  "sample": [
+   "Maintenance Tech - 2nd Shift",
+   "Maintenance Tech - 3rd Shift"
+  ]
+ },
+ {
+  "parent": "BASF CORP",
+  "domain": "basf.com",
+  "plants": 9,
+  "hiring": true,
+  "total": 417,
+  "returned": 25,
+  "maint": 1,
+  "newest": "2026-11-15",
+  "miss": null,
+  "sample": [
+   "Maintenance Scheduler - Greenville, Ohio"
+  ]
+ },
+ {
+  "parent": "PPG INDUSTRIES INC",
+  "domain": "ppg.com",
+  "plants": 9,
+  "hiring": true,
+  "total": 337,
+  "returned": 25,
+  "maint": 1,
+  "newest": "2026-11-17",
+  "miss": null,
+  "sample": [
+   "Maintenance Mechanic, 2nd Shift"
+  ]
+ },
+ {
+  "parent": "NOV INC",
+  "domain": "nov.com",
+  "plants": 18,
+  "hiring": true,
+  "total": 319,
+  "returned": 25,
+  "maint": 1,
+  "newest": "2026-11-16",
+  "miss": null,
+  "sample": [
+   "Mechanical Engineering Intern"
+  ]
+ },
+ {
+  "parent": "SWAGELOK CO",
+  "domain": "swagelok.com",
+  "plants": 8,
+  "hiring": true,
+  "total": 135,
+  "returned": 25,
+  "maint": 1,
+  "newest": "2026-11-17",
+  "miss": null,
+  "sample": [
+   "Equipment Maintenance - Level 2 - 24/7 Nights - Willoughby Hills, Ohio"
+  ]
+ },
+ {
+  "parent": "VIBRANTZ TECHNOLOGIES INC",
+  "domain": "vibrantz.com",
+  "plants": 7,
+  "hiring": true,
+  "total": 32,
+  "returned": 25,
+  "maint": 1,
+  "newest": "2026-11-15",
+  "miss": null,
+  "sample": [
+   "Multi-Craft Maintenance Tech"
+  ]
+ },
+ {
+  "parent": "THE SHERWIN-WILLIAMS CO",
+  "domain": "sherwin-williams.com",
+  "plants": 8,
+  "hiring": true,
+  "total": 664,
+  "returned": 25,
+  "maint": 0,
+  "newest": "",
+  "miss": null,
+  "sample": []
+ },
+ {
+  "parent": "HALLIBURTON ENERGY SERVICES INC",
+  "domain": "halliburton.com",
+  "plants": 10,
+  "hiring": true,
+  "total": 557,
+  "returned": 25,
+  "maint": 0,
+  "newest": "",
+  "miss": null,
+  "sample": []
+ },
+ {
+  "parent": "HOWMET AEROSPACE INC",
+  "domain": "howmet.com",
+  "plants": 7,
+  "hiring": true,
+  "total": 486,
+  "returned": 25,
+  "maint": 0,
+  "newest": "",
+  "miss": null,
+  "sample": []
+ },
+ {
+  "parent": "PARKER HANNIFIN CORP",
+  "domain": "parker.com",
+  "plants": 9,
+  "hiring": true,
+  "total": 451,
+  "returned": 25,
+  "maint": 0,
+  "newest": "",
+  "miss": null,
+  "sample": []
+ },
+ {
+  "parent": "ILLINOIS TOOL WORKS INC",
+  "domain": "itw.com",
+  "plants": 9,
+  "hiring": true,
+  "total": 86,
+  "returned": 25,
+  "maint": 0,
+  "newest": "",
+  "miss": null,
+  "sample": []
+ },
+ {
+  "parent": "RPM INTERNATIONAL INC",
+  "domain": "rpminc.com",
+  "plants": 12,
+  "hiring": false,
+  "total": 0,
+  "returned": 0,
+  "maint": 0,
+  "newest": "",
+  "miss": "\"no_open_job_postings\"",
+  "sample": []
+ }
+]

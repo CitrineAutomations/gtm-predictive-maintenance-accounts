@@ -1,0 +1,9 @@
+{
+  "parents_tested": 25,
+  "tri_plants_total": 121,
+  "maps_places_total": 85,
+  "maps_places_matching_brand": 82,
+  "tri_plants_found_by_maps": 22,
+  "maps_brand_sites_not_in_tri": 60,
+  "parents_with_zero_brand_match": 1
+}

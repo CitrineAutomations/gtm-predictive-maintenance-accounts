@@ -1,0 +1,26 @@
+{
+  "parents": 978,
+  "epa_only": 320,
+  "osha_only": 106,
+  "both": 286,
+  "neither": 266,
+  "epa_total": 606,
+  "osha_total": 392,
+  "share_by_plant_count": {
+    "3-4": {
+      "parents": 460,
+      "epa_pct": 45,
+      "osha_pct": 27
+    },
+    "5-9": {
+      "parents": 317,
+      "epa_pct": 69,
+      "osha_pct": 44
+    },
+    "10+": {
+      "parents": 201,
+      "epa_pct": 91,
+      "osha_pct": 63
+    }
+  }
+}

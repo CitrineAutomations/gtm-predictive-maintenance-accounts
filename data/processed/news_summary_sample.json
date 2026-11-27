@@ -1,0 +1,19 @@
+{
+  "mode": "sample",
+  "since": "2025-11-19",
+  "parents": 25,
+  "errors": 0,
+  "results_returned": 200,
+  "results_kept": 146,
+  "dropped_person_profiles": 5,
+  "dropped_name_check": 47,
+  "dropped_old_date": 2,
+  "parents_with_a_kept_result": 23,
+  "kept_by_story_type": {
+    "acquisition": 22,
+    "expansion": 53,
+    "other": 68,
+    "closure": 3
+  },
+  "exa_cost_usd": 0.175
+}

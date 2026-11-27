@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// One company tree: parent > business > plant. A parent with a rank is one of the 250 accounts.
+model Company {
+  id              String     @id @default(uuid())
+  level           Level
+  name            String
+  legalName       String?
+  parentId        String?
+  rootId          String?
+  parent          Company?   @relation("tree", fields: [parentId], references: [id], onDelete: Cascade)
+  children        Company[]  @relation("tree")
+  rank            Int?       @unique
+  city            String?
+  state           String?
+  naics           String?
+  plantCount      Int        @default(0)
+  stateCount      Int        @default(0)
+  seriousPlants   Int        @default(0)
+  machinePlants   Int        @default(0)
+  integrityPlants Int        @default(0)
+  epaPlants       Int        @default(0)
+  // Signal flags on a plant
+  osha            Boolean    @default(false)
+  machine         Boolean    @default(false)
+  integrity       Boolean    @default(false)
+  epa             Boolean    @default(false)
+  startWith       String?
+  reviewNote      String?
+  industry        String?
+  // Email group of an account in the 60-day test
+  emailGroup      Angle?
+  startPlantId    String?
+  // EPA registry ID of a plant, and its equipment-related findings (pipeline step 02g)
+  frsId           String?
+  // No longer used. Kept so that a database update drops no column.
+  epaQuarters     Int        @default(0)
+  epaFindings     Json?
+  epaSnc          String?
+  epaOpen         Boolean    @default(false)
+  inspections     Inspection[]
+  // Company overview and recent news of an account, from data/profiles.json
+  profile         Json?
+  // Set on a plant that a source says is closed
+  closedNote      String?
+  contacts        Contact[]
+  activities      Activity[]
+
+  @@index([parentId])
+  @@index([rootId])
+  @@index([level])
+}
+
+enum Level {
+  PARENT
+  BUSINESS
+  PLANT
+}
+
+// One OSHA inspection with serious, repeat or willful items at a plant.
+model Inspection {
+  id           String  @id @default(uuid())
+  activityNr   String
+  companyId    String
+  company      Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  openDate     String
+  estabName    String
+  address      String?
+  standards    String[]
+  seriousItems Int
+  penalty      Int
+
+  @@index([companyId])
+}
+
+model Contact {
+  id          String     @id @default(uuid())
+  companyId   String
+  company     Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  rootId      String
+  firstName   String
+  lastName    String
+  role        String
+  title       String?
+  email       String?
+  emailStatus String?
+  linkedin    String?
+  location    String?
+  plantMatch  String?
+  source      String?
+  checkedOn   DateTime?
+  // A reason to confirm the person before outreach
+  warning     String?
+  activities  Activity[]
+
+  @@index([rootId])
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  contactId String?
+  contact   Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  result    Result
+  angle     Angle
+  note      String?
+  userEmail String
+  createdAt DateTime @default(now())
+
+  @@index([companyId])
+}
+
+enum Result {
+  NO_REPLY
+  REPLY
+  MEETING
+}
+
+enum Angle {
+  OSHA
+  CONTROL
+}
+
+// Login tables (Better Auth)
+model User {
+  id            String        @id
+  name          String
+  email         String        @unique
+  emailVerified Boolean       @default(false)
+  image         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  sessions      Session[]
+  accounts      AuthAccount[]
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuthAccount {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

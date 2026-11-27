@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Color tokens from NextCRM (MIT, see LICENSE.nextcrm). The sun and moon button sets data-theme. */
+:root {
+  --background: 0 0% 100%; --foreground: 0 0% 3.9%; --card: 0 0% 100%; --sidebar: 0 0% 98%;
+  --primary: 262.1 83.3% 57.8%; --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 96.1%; --secondary-foreground: 0 0% 9%;
+  --muted: 0 0% 96.1%; --muted-foreground: 0 0% 40%;
+  --accent: 262 70% 95%; --accent-foreground: 0 0% 9%;
+  --destructive: 0 72% 40%; --destructive-foreground: 0 0% 98%;
+  --warn: 40 90% 90%; --warn-foreground: 38 100% 24%;
+  --border: 0 0% 89.8%; --input: 0 0% 89.8%; --ring: 262.1 83.3% 57.8%;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: 0 0% 3.9%; --foreground: 0 0% 98%; --card: 0 0% 6%; --sidebar: 0 0% 7%;
+    --primary: 263.4 70% 60%; --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%; --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%; --muted-foreground: 0 0% 68%;
+    --accent: 262 40% 20%; --accent-foreground: 0 0% 98%;
+    --destructive: 0 80% 70%; --destructive-foreground: 0 0% 8%;
+    --warn: 38 55% 13%; --warn-foreground: 38 88% 68%;
+    --border: 0 0% 18%; --input: 0 0% 18%; --ring: 263.4 70% 60%;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --background: 0 0% 3.9%; --foreground: 0 0% 98%; --card: 0 0% 6%; --sidebar: 0 0% 7%;
+  --primary: 263.4 70% 60%; --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 14.9%; --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%; --muted-foreground: 0 0% 68%;
+  --accent: 262 40% 20%; --accent-foreground: 0 0% 98%;
+  --destructive: 0 80% 70%; --destructive-foreground: 0 0% 8%;
+  --warn: 38 55% 13%; --warn-foreground: 38 88% 68%;
+  --border: 0 0% 18%; --input: 0 0% 18%; --ring: 263.4 70% 60%;
+  color-scheme: dark;
+}
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--foreground));
+  --color-sidebar: hsl(var(--sidebar));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-warn: hsl(var(--warn));
+  --color-warn-foreground: hsl(var(--warn-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+}
+@layer base {
+  * { border-color: hsl(var(--border)); }
+  body { background: hsl(var(--background)); color: hsl(var(--foreground)); }
+}

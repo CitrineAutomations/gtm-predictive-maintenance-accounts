@@ -16,6 +16,16 @@ data/raw/*
 # Personal contact data (names, emails, phones). Never commit.
 data/contacts/
 
+# Pilot output (regenerate with pipeline/01_universe.mjs)
+data/processed/pilot_facilities.csv
+data/processed/tri_facilities.csv
+data/processed/tri_shortlist_facilities.csv
+data/processed/echo_plants.csv
+data/processed/osha_plants.csv
+data/processed/pilot_postings.json
+data/processed/pilot_postings_receipt.json
+data/processed/pilot_parents.json
+
 # Original third-party brief (not ours to republish)
 Instructions.md
 
@@ -23,3 +33,4 @@ Instructions.md
 .DS_Store
 Thumbs.db
 .vscode/
+data/processed/epa_equipment_plants.csv

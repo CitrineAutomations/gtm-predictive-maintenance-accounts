@@ -1,0 +1,13 @@
+{
+  "since": "2023-11-01",
+  "osha_inspections_with_citations_pulled": 23317,
+  "shortlist_plants": 7613,
+  "inspections_matched_strong": 1177,
+  "inspections_matched_weak_not_used": 132,
+  "plants_with_citation": 868,
+  "plants_with_serious_repeat_willful": 652,
+  "parents": 978,
+  "parents_with_cited_plant": 476,
+  "parents_with_serious_plant": 392,
+  "parents_with_2plus_serious_plants": 153
+}
