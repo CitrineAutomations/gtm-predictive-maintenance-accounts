@@ -1,5 +1,6 @@
 // Step 03b: pick 250 accounts that have the OSHA signal.
 // Usage: node pipeline/03b_select.mjs   (run steps 02b and 02c first)
+//        node pipeline/03b_select.mjs 25   write only the next 25 accounts after the 250, to accounts_extra.csv
 //
 // An account is a parent company. For the owners listed in pipeline/owner_splits.json, the row also
 // names the businesses under the parent that have the OSHA signal, best first. Sold plants do not count.
@@ -70,7 +71,7 @@ const notAssigned = [];
 for (const plant of readCsv('tri_shortlist_facilities.csv')) {
   const owner = plant.parent_name;
   const split = rules.splits[owner];
-  const sold = (split?.exclude || []).find((x) => new RegExp(x.pattern).test(plant.facility_name));
+  const sold = (split?.exclude || []).find((x) => (x.trifd ? x.trifd === plant.trifd : new RegExp(x.pattern).test(plant.facility_name)));
   if (sold) {
     notAssigned.push({ owner_name: owner, facility_name: plant.facility_name, state: plant.state, reason: sold.reason });
     continue;
@@ -110,6 +111,14 @@ const pool = [...accounts.values()]
   .filter((a) => a.plants >= 3 && a.states >= 2 && a.serious_plants > 0)
   .sort((a, b) => b.integrity_plants - a.integrity_plants || b.machine_plants - a.machine_plants
     || b.serious_plants - a.serious_plants || b.states - a.states || a.account_name.localeCompare(b.account_name));
+
+const EXTRA = Number(process.argv[2] || 0);
+if (EXTRA) {
+  const next = pool.slice(SIZE, SIZE + EXTRA).map((a, i) => ({ rank: SIZE + i + 1, ...a }));
+  writeCsv('accounts_extra.csv', Object.keys(next[0]), next);
+  console.log(JSON.stringify({ written: next.length, ranks: [next[0].rank, next.at(-1).rank], pool_accounts: pool.length }));
+  process.exit(0);
+}
 
 const picked = pool.slice(0, SIZE).map((a, i) => ({ rank: i + 1, ...a }));
 writeCsv('accounts_250.csv', Object.keys(picked[0]), picked);
