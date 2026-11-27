@@ -1,6 +1,6 @@
 # Mini CRM
 
-A small CRM for the 250 target accounts.
+A small CRM for the target accounts.
 
 - A sidebar with Accounts, Contacts, Activity, 60-day test and Playbook, plus a "Go to company" box.
 - Each account page has tabs: battle card, contacts, email, company tree, why now and activity.
@@ -30,7 +30,7 @@ The seed needs the output of the pipeline steps, including files that Git ignore
 
 ## Contacts
 
-Contacts are personal data. The seed reads them from a CSV outside Git (`CONTACTS_CSV`). Do not commit that file, screenshots with names, or a database dump. The seed script maps the four test accounts by name. A larger contact file needs a `legal_parent_name` column.
+Contacts are personal data. The seed reads them from a CSV outside Git (`CONTACTS_CSV`). Do not commit that file, screenshots with names, or a database dump. The contact file needs a `legal_parent_name` column. For the demo set, run pipeline step 06, then set `ACCOUNTS_CSV` to `data/processed/accounts_demo.csv` and `CONTACTS_CSV` to `data/contacts/enrichment/crm_contacts.csv`.
 
 A contact is marked as a likely bad record when the last name or mailbox is the company's own name.
 
