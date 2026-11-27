@@ -30,7 +30,7 @@ One account is one parent company. Its businesses and plants sit underneath it.
 | EPA equipment violations | Background on the battle card only |
 | EPA "any non-compliance" count | Dropped. See below |
 | Revenue alone | Ignored. The list that used it failed |
-| Hiring and company news | Researched by hand for one account so far |
+| Hiring and company news | Tried on samples of about 25 parents. Not part of the selection. One account's battle card shows both |
 
 ## The 60-day test
 
