@@ -4,7 +4,8 @@
   "splits": {
     "BERKSHIRE HATHAWAY INC": {
       "exclude": [
-        { "pattern": "GREENAMERICA", "reason": "Sold to Southwest Iowa Renewable Energy, October 2026", "source": "https://agri-pulse.com/articles/25377-sire-acquires-nebraska-ethanol-plant" }
+        { "pattern": "GREENAMERICA", "reason": "Sold to Southwest Iowa Renewable Energy, October 2026", "source": "https://agri-pulse.com/articles/25377-sire-acquires-nebraska-ethanol-plant" },
+        { "pattern": "(?!)", "trifd": "78112CLRWT4420S", "reason": "Lubrizol Elmendorf site sold to Verdant Specialty Solutions, closed 31 December 2025", "source": "https://www.verdantspecialty.com/news-updates/verdant-specialty-solutions-a-samyang-company-completes-acquisition-of-lubrizols-elmendorf-texas-manufacturing-and-rd-assets" }
       ],
       "businesses": [
         { "name": "Precision Castparts", "confidence": "source", "source": "https://sec.gov/Archives/edgar/data/79958/000007995813000018/pcp2013053010kex21.htm", "pattern": "PCC|WYMAN|SPS TECH|SPECIAL METALS|HUNTINGTON|TITANIUM METALS|CANNON|CARLTON|SHULTZ|KLUNE|PRIMUS|PRESS FORGE|AEROSPACE DYN|AEROCRAFT|AIR INDUSTRIES|AVIBANK|CHERRY|DESIGNED METAL|FATIGUE|SHUR-LOK|NSS TECH|ROLLMET|SXP|GREENVILLE|RATHGIBSON|SSB1|LMA |UNIVERSITY SWAG|TEXAS HONING|PROTECTIVE COATINGS|MCWILLIAMS|AMERICAN HANDFORGE|ALLOY PROCESSING|ANDREWS LASER|THISTLE|SUMMIT MACHINE|WALDEN" },

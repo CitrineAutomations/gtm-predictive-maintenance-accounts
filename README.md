@@ -25,6 +25,24 @@ v0. Built from public data only. There is no access to the vendor's Salesforce d
 | `supabase/` | Database schema and row-level security |
 | `web/` | Lightweight CRM view, deployed on Vercel |
 
+## Plant check and contacts
+
+These steps run after step 03b. Run each from the repo root. `PIPELINE_DIR` points steps 04a to 04e at the folder that holds the ignored inputs from earlier steps.
+
+| Script | What it does | Cost |
+| --- | --- | --- |
+| `04a_research.mjs` | Company facts and recent news for one account | Keenable free allowance, Exa as a fallback |
+| `04b_people_search.mjs` | Web search for plant leaders at a few companies | Keenable free allowance |
+| `04c` to `04e` | Check each candidate start plant for a closure, sale or serious incident | Keenable free allowance |
+| `05_contact_list.mjs` | Apply the drop, hold and replace decisions to the account list | None |
+| `04f_contact_search.mjs` | Pick one plant and one maintenance person per company | Deepline free search allowance |
+| `06_demo_accounts.mjs` | Build the files the CRM loads | None |
+| `progress_contacts.mjs` | Progress view for contact enrichment | None |
+
+Email lookup is a paid Deepline play (`prebuilt/person-to-email-batch`). Run it with a dry run and `--max-credits`, and log it in `docs/credit_ledger.csv`.
+
+Names, emails and phone numbers stay in `data/contacts/`, which Git ignores. The plant check results and the files built from them are kept local too and are not committed.
+
 ## Flow
 
 1. Build the plant and parent universe from public registries.
