@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-type Item = { href: string; label: string; count?: number };
+type Item = { href: string; label: string };
 
 const WORK: Item[] = [
-  { href: "/", label: "Accounts", count: 250 },
+  { href: "/", label: "Accounts" },
   { href: "/contacts", label: "Contacts" },
   { href: "/activity", label: "Activity" },
 ];
@@ -33,7 +33,7 @@ export function Nav({ companies }: { companies: { id: string; name: string }[] }
           className="flex justify-between gap-2 rounded-md px-3 py-1.5 font-medium text-muted-foreground hover:bg-muted aria-[current=page]:bg-accent aria-[current=page]:text-accent-foreground"
         >
           {item.label}
-          {item.count ? <span className="tabular-nums">{item.count}</span> : null}
+          {item.href === "/" ? <span className="tabular-nums">{companies.length}</span> : null}
         </Link>
       ))}
     </>

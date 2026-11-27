@@ -1,4 +1,4 @@
-// Loads the 250 accounts, their businesses and plants, OSHA inspection records and the local contacts.
+// Loads the accounts (accounts_250.csv, or the file in ACCOUNTS_CSV), their businesses and plants, OSHA inspection records and the local contacts.
 // Usage: pnpm seed    (needs DATABASE_URL, SEED_ADMIN_EMAIL, SEED_ADMIN_PASSWORD in web/.env)
 // The seed replaces companies and contacts. It keeps logged results when the account still exists.
 // Inspection records come from the labordata.bunkum.us mirror (third party, free). They are cached in web/.cache.
@@ -14,7 +14,7 @@ import { isMachineRule, titleCase } from "../lib/rules";
 const ROOT = process.env.PIPELINE_DIR || path.resolve(process.cwd(), "..");
 const processed = (file: string) => path.join(ROOT, "data/processed", file);
 const CACHE = path.resolve(process.cwd(), ".cache/inspections.json");
-const CONTROL_SHARE = 0.2; // 50 of 250 accounts get the email without a signal
+const CONTROL_SHARE = 0.2; // one account in five gets the email without a signal
 
 const INDUSTRY: Record<string, string> = {
   "311": "Food", "324": "Petroleum and coal", "325": "Chemicals", "326": "Plastics and rubber",
@@ -69,7 +69,7 @@ async function violations(ids: string[]): Promise<Violation[]> {
   return rows;
 }
 
-type SplitRule = { name?: string; pattern: string };
+type SplitRule = { name?: string; pattern: string; trifd?: string };
 
 const STATE_CODES: Record<string, string> = Object.fromEntries(
   ("Alabama:AL,Alaska:AK,Arizona:AZ,Arkansas:AR,California:CA,Colorado:CO,Connecticut:CT,Delaware:DE,Florida:FL,Georgia:GA," +
@@ -98,7 +98,8 @@ async function main() {
   const password = process.env.SEED_ADMIN_PASSWORD;
   if (!email || !password) throw new Error("Set SEED_ADMIN_EMAIL and SEED_ADMIN_PASSWORD in web/.env");
 
-  const accounts = readCsv(processed("accounts_250.csv"));
+  // ACCOUNTS_CSV can add start_city, start_state and closed_json (pipeline step 06).
+  const accounts = readCsv(process.env.ACCOUNTS_CSV || processed("accounts_250.csv"));
   const facilities = readCsv(processed("tri_shortlist_facilities.csv"));
   const osha = new Map(readCsv(processed("osha_plants.csv")).map((r) => [r.trifd, r]));
   const epaFindings = new Map(readCsv(processed("epa_equipment_plants.csv")).map((r) => [r.trifd, r]));
@@ -136,7 +137,7 @@ async function main() {
     const rootId = rootByName.get(f.parent_name);
     if (!rootId) continue;
     const split = rules.splits[f.parent_name];
-    if (split?.exclude?.some((x: SplitRule) => new RegExp(x.pattern).test(f.facility_name))) continue;
+    if (split?.exclude?.some((x: SplitRule) => (x.trifd ? x.trifd === f.trifd : new RegExp(x.pattern).test(f.facility_name)))) continue;
     const biz: SplitRule | undefined = split?.businesses.find((x: SplitRule) => new RegExp(x.pattern).test(f.facility_name));
     let parentId = rootId;
     if (biz?.name) {
@@ -212,6 +213,15 @@ async function main() {
       const [start] = [...plants].sort((a, b) =>
         b.score[0] - a.score[0] || b.score[1] - a.score[1] || b.score[2] - a.score[2] || b.score[3].localeCompare(a.score[3]));
       c.startPlantId = start?.id ?? null;
+      // The plant check can name the start city. It wins over the ranking.
+      const account = accounts.find((a) => a.legal_parent_name === c.legalName);
+      if (account?.start_city) {
+        const checked = [...plants]
+          .sort((a, b) => b.score[0] - a.score[0] || b.score[1] - a.score[1] || b.score[2] - a.score[2] || b.score[3].localeCompare(a.score[3]))
+          .find((p) => companies.some((x) => x.id === p.id && x.city === account.start_city && x.state === account.start_state));
+        if (checked) c.startPlantId = checked.id;
+        else console.warn(`No plant in the start city for ${c.name}`);
+      }
     } else if (c.level === "BUSINESS") {
       c.industry = industryOf(companies.filter((p) => p.parentId === c.id && p.level === "PLANT").map((p) => p.naics!));
     }
@@ -238,6 +248,15 @@ async function main() {
     for (const closed of profile.closedPlants ?? []) {
       for (const plant of companies.filter((c) => c.rootId === rootId && c.city === closed.city && c.state === closed.state)) {
         plant.closedNote = closed.note;
+      }
+    }
+  }
+
+  // Plants that the plant check found closed or sold.
+  for (const a of accounts) {
+    for (const closed of JSON.parse(a.closed_json || "[]") as { city: string; state: string; note: string }[]) {
+      for (const plant of companies.filter((c) => c.rootId === rootByName.get(a.legal_parent_name) && c.city === closed.city && c.state === closed.state)) {
+        plant.closedNote ??= closed.note;
       }
     }
   }
@@ -273,11 +292,11 @@ async function main() {
       const closedCity = companies.find((c) => c.rootId === rootId && c.closedNote && (r.location || "").toLowerCase().startsWith(`${c.city?.toLowerCase()},`));
       await prisma.contact.create({
         data: {
-          warning: closedCity ? `Confirm the job first. The ${titleCase(closedCity.city!)} plant is closed.` : null,
+          warning: r.warning || (closedCity ? `Confirm the job first. The ${titleCase(closedCity.city!)} plant is closed.` : null),
           companyId, rootId, firstName: r.first_name, lastName: r.last_name, role: r.role, title: r.title || null,
           email: r.email || null, emailStatus: suspect ? "suspect" : r.email_validation_status || null,
           linkedin: r.linkedin_url || null, location: r.location || null,
-          plantMatch: closeness(r.location || "", companies.filter((c) => c.rootId === rootId && c.level === "PLANT")),
+          plantMatch: [closeness(r.location || "", companies.filter((c) => c.rootId === rootId && c.level === "PLANT")), r.check_note && `Check: ${r.check_note}`].filter(Boolean).join(" "),
           source: "Deepline people search and email lookup", checkedOn,
         },
       });
@@ -286,7 +305,9 @@ async function main() {
   }
 
   // When a usable contact sits in the city of a plant with a machine citation, start at that plant.
-  for (const person of await prisma.contact.findMany({ where: { email: { not: null } }, orderBy: { lastName: "asc" } })) {
+  // Not used when the account file names the start city: a checked plant stays.
+  const checkedStart = accounts.some((a) => a.start_city);
+  for (const person of checkedStart ? [] : await prisma.contact.findMany({ where: { email: { not: null } }, orderBy: { lastName: "asc" } })) {
     if (person.emailStatus === "suspect" || !person.location) continue;
     const plants = await prisma.company.findMany({ where: { rootId: person.rootId, level: "PLANT", machine: true } });
     const match = plants.find((p) => person.location!.toLowerCase().startsWith(`${p.city?.toLowerCase()},`));
